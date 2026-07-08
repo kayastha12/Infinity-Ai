@@ -21,6 +21,7 @@ export default function Navbar() {
         <Link href="#demo" className="hover:text-white transition-colors">Demo</Link>
         <Link href="#capabilities" className="hover:text-white transition-colors">Capabilities</Link>
         <Link href="#developers" className="hover:text-white transition-colors">Developers</Link>
+        <Link href="#feedback" className="hover:text-white transition-colors">Feedback</Link>
       </div>
       
       <a href="https://github.com/kayastha12/Infinity-Ai/releases/download/v1.0.0-beta/Infinity-AI.zip" className="px-4 py-2 text-xs md:text-sm md:px-6 md:py-2 rounded-full bg-neon-cyan/20 border border-neon-cyan/50 text-white font-medium hover:bg-neon-cyan/30 transition-colors">

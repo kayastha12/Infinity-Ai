@@ -5,6 +5,7 @@ import InteractiveDemo from "@/components/InteractiveDemo";
 import WorkflowPipeline from "@/components/WorkflowPipeline";
 import Capabilities from "@/components/Capabilities";
 import DeveloperSection from "@/components/DeveloperSection";
+import FeedbackSection from "@/components/FeedbackSection";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
       <WorkflowPipeline />
       <Capabilities />
       <DeveloperSection />
+      <FeedbackSection />
       <Footer />
     </main>
   );
