@@ -178,11 +178,13 @@ export default function AdminDashboard() {
                   {/* Action Buttons */}
                   <div className="flex gap-2 mt-4 pt-4 border-t border-white/10">
                     <a 
-                      href={`mailto:${item.email}?subject=Reply to your feedback for Infinity AI`}
+                      href={`https://mail.google.com/mail/?view=cm&fs=1&to=${item.email}&su=Reply to your feedback for Infinity AI`}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-neon-cyan/10 text-neon-cyan hover:bg-neon-cyan/20 transition-colors text-sm"
                     >
                       <Reply className="w-4 h-4" />
-                      Reply
+                      Reply via Gmail
                     </a>
                     <button 
                       onClick={() => handleDelete(item.id)}
