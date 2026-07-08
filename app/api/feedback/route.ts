@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { kv } from "@vercel/kv";
+import nodemailer from "nodemailer";
 
 export async function POST(req: Request) {
   try {
@@ -39,6 +40,65 @@ export async function POST(req: Request) {
 
     // Store in Vercel KV list
     await kv.lpush("infinity_feedback", JSON.stringify(feedbackEntry));
+
+    // Async Email Auto-Reply via Gmail SMTP (Graceful degradation if credentials are missing)
+    if (process.env.GMAIL_USER && process.env.GMAIL_PASS) {
+      try {
+        const transporter = nodemailer.createTransport({
+          service: "gmail",
+          auth: {
+            user: process.env.GMAIL_USER,
+            pass: process.env.GMAIL_PASS,
+          },
+        });
+
+        const emailHtml = `
+          <div style="background-color: #030305; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; padding: 40px; border-radius: 16px; max-width: 600px; margin: 0 auto; border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);">
+            <div style="text-align: center; margin-bottom: 30px;">
+              <h1 style="color: #00ffff; font-size: 28px; margin: 0; letter-spacing: -0.5px; font-weight: 700; text-transform: uppercase;">INFINITY AI</h1>
+              <p style="color: #888; font-size: 10px; margin: 5px 0 0 0; text-transform: uppercase; letter-spacing: 3px; font-weight: 600;">Personal Intelligence System</p>
+            </div>
+            
+            <div style="margin-bottom: 35px;">
+              <h2 style="font-size: 18px; font-weight: 500; margin-top: 0; color: #ffffff; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 10px;">Hello ${data.name.trim()},</h2>
+              <p style="color: #cccccc; line-height: 1.6; font-size: 15px; font-weight: 300;">
+                We have successfully received your feedback regarding <strong>Infinity AI</strong>. Thank you for contributing to the self-evolution of our platform.
+              </p>
+              
+              <div style="background-color: rgba(255, 255, 255, 0.02); border-left: 3px solid #00ffff; padding: 18px; margin: 25px 0; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.05); border-left-width: 3px;">
+                <p style="color: #888888; font-size: 11px; text-transform: uppercase; margin: 0 0 8px 0; font-weight: bold; letter-spacing: 1px;">Your Submission</p>
+                <p style="color: #e5e5e5; font-style: italic; margin: 0; font-size: 14px; line-height: 1.5; font-weight: 300;">"${data.message.trim()}"</p>
+              </div>
+              
+              <p style="color: #cccccc; line-height: 1.6; font-size: 15px; font-weight: 300;">
+                Our core systems and developers are actively reviewing your submission. If we require any additional logs or context, our team will contact you directly at this address.
+              </p>
+            </div>
+            
+            <hr style="border: 0; border-top: 1px solid rgba(255, 255, 255, 0.1); margin: 30px 0;" />
+            
+            <div style="text-align: center; color: #666666; font-size: 11px; line-height: 1.6; font-weight: 300;">
+              <p style="margin: 0;">Built for Students by <strong>Alok Srivastav</strong></p>
+              <p style="margin: 4px 0 0 0;">Powered by Gemini & Ollama</p>
+            </div>
+          </div>
+        `;
+
+        await transporter.sendMail({
+          from: `"Infinity AI" <${process.env.GMAIL_USER}>`,
+          to: data.email.trim(),
+          subject: "Feedback Received - Infinity AI",
+          html: emailHtml,
+        });
+
+        console.log("Auto-reply email sent to:", data.email.trim());
+      } catch (emailErr) {
+        // Log the error but DO NOT block the user feedback response
+        console.error("Failed to send auto-reply email:", emailErr);
+      }
+    } else {
+      console.warn("GMAIL_USER or GMAIL_PASS environment variables are missing. Skipping email auto-reply.");
+    }
 
     return NextResponse.json({ success: true, entry: feedbackEntry }, { status: 201 });
   } catch (error) {
