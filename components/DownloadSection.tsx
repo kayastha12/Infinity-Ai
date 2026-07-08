@@ -21,10 +21,18 @@ export default function DownloadSection() {
           Join thousands of developers and professionals who have already upgraded their workflow with Infinity AI.
         </p>
 
-        <button className="flex items-center gap-3 px-10 py-5 rounded-full bg-white text-black font-bold text-lg hover:scale-105 transition-transform shadow-[0_0_40px_rgba(255,255,255,0.4)] mb-16 relative z-10 group">
-          <Download className="w-6 h-6 group-hover:animate-bounce" />
-          Download for Windows 11
-        </button>
+        <div className="flex flex-col items-center gap-2 mb-16 relative z-10">
+          <a 
+            href="https://github.com/kayastha12/Infinity-Ai/releases/download/v1.0.0-beta/Infinity-AI.zip" 
+            className="flex items-center gap-3 px-10 py-5 rounded-full bg-white text-black font-bold text-lg hover:scale-105 transition-transform shadow-[0_0_40px_rgba(255,255,255,0.4)] group"
+          >
+            <Download className="w-6 h-6 group-hover:animate-bounce" />
+            Download for Windows 11
+          </a>
+          <span className="text-xs text-yellow-500 font-mono mt-2">
+            ⚠️ Testing Phase: May contain errors.
+          </span>
+        </div>
 
         <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left relative z-10 border-t border-white/10 pt-16">
           
