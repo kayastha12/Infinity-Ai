@@ -3,7 +3,7 @@
 import { Canvas } from "@react-three/fiber";
 import AICore from "@/three/AICore";
 import { motion } from "framer-motion";
-import { Clock, Play, GitBranch, FileText } from "lucide-react";
+import { Download, Play, GitBranch, FileText } from "lucide-react";
 import { useState } from "react";
 import DemoModal from "./DemoModal";
 
@@ -63,12 +63,17 @@ export default function HeroSection() {
           transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4 pointer-events-auto w-full sm:w-auto"
         >
-          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-            <button className="flex items-center justify-center sm:justify-start gap-2 px-8 py-4 rounded-full bg-white/5 border border-white/20 text-gray-400 font-bold cursor-not-allowed w-full sm:w-auto">
-              <Clock className="w-5 h-5" />
-              Coming Soon
-            </button>
-            <button onClick={() => setIsDemoOpen(true)} className="flex items-center justify-center sm:justify-start gap-2 px-8 py-4 rounded-full glass hover:bg-white/10 transition-colors text-white font-medium group w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto items-start">
+            <div className="flex flex-col items-center w-full sm:w-auto gap-2">
+              <a href="/downloads/Infinity-AI.zip" download className="flex items-center justify-center sm:justify-start gap-2 px-8 py-4 rounded-full bg-neon-cyan/20 border border-neon-cyan/50 text-white font-bold hover:bg-neon-cyan/30 transition-colors w-full sm:w-auto">
+                <Download className="w-5 h-5" />
+                Download App
+              </a>
+              <span className="text-[10px] text-yellow-500 font-mono text-center px-4 max-w-[200px] leading-tight">
+                ⚠️ Testing Phase: May contain errors.
+              </span>
+            </div>
+            <button onClick={() => setIsDemoOpen(true)} className="flex items-center justify-center sm:justify-start gap-2 px-8 py-4 rounded-full glass hover:bg-white/10 transition-colors text-white font-medium group w-full sm:w-auto h-14">
               <Play className="w-5 h-5 text-neon-cyan group-hover:text-white transition-colors" />
               Watch Demo
             </button>
