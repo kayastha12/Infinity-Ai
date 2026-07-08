@@ -11,15 +11,23 @@ export async function POST(req: Request) {
 
     const data = await req.json();
     
+    if (!data.name || !data.name.trim()) {
+      return NextResponse.json({ error: "Name is required" }, { status: 400 });
+    }
+
+    if (!data.email || !data.email.trim()) {
+      return NextResponse.json({ error: "Email is required" }, { status: 400 });
+    }
+
     if (!data.message || !data.message.trim()) {
       return NextResponse.json({ error: "Message is required" }, { status: 400 });
     }
 
     const feedbackEntry = {
       id: crypto.randomUUID(),
-      name: data.name || "Anonymous",
-      email: data.email || "No Email",
-      message: data.message,
+      name: data.name.trim(),
+      email: data.email.trim(),
+      message: data.message.trim(),
       createdAt: new Date().toISOString(),
     };
 

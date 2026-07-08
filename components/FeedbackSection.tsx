@@ -11,7 +11,7 @@ export default function FeedbackSection() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.message.trim()) return;
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) return;
     
     setStatus("submitting");
     
@@ -76,10 +76,11 @@ export default function FeedbackSection() {
           <form onSubmit={handleSubmit} className="flex flex-col gap-6 relative z-10">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="flex flex-col gap-2">
-                <label htmlFor="name" className="text-sm font-medium text-gray-400">Name (Optional)</label>
+                <label htmlFor="name" className="text-sm font-medium text-gray-400">Name *</label>
                 <input
                   type="text"
                   id="name"
+                  required
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   placeholder="John Doe"
@@ -87,10 +88,11 @@ export default function FeedbackSection() {
                 />
               </div>
               <div className="flex flex-col gap-2">
-                <label htmlFor="email" className="text-sm font-medium text-gray-400">Email (Optional)</label>
+                <label htmlFor="email" className="text-sm font-medium text-gray-400">Email *</label>
                 <input
                   type="email"
                   id="email"
+                  required
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   placeholder="john@example.com"
@@ -114,7 +116,7 @@ export default function FeedbackSection() {
 
             <button
               type="submit"
-              disabled={status === "submitting" || !formData.message.trim()}
+              disabled={status === "submitting" || !formData.name.trim() || !formData.email.trim() || !formData.message.trim()}
               className="mt-4 flex items-center justify-center gap-2 w-full py-4 rounded-xl bg-white text-black font-bold hover:bg-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed group"
             >
               {status === "submitting" ? (
