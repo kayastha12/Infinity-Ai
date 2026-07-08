@@ -65,7 +65,7 @@ export default function HeroSection() {
         >
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto items-start">
             <div className="flex flex-col items-center w-full sm:w-auto gap-2">
-              <a href="/downloads/Infinity-AI.zip" download className="flex items-center justify-center sm:justify-start gap-2 px-8 py-4 rounded-full bg-neon-cyan/20 border border-neon-cyan/50 text-white font-bold hover:bg-neon-cyan/30 transition-colors w-full sm:w-auto">
+              <a href="https://github.com/kayastha12/Infinity-Ai/releases/download/v1.0.0-beta/Infinity-AI.zip" className="flex items-center justify-center sm:justify-start gap-2 px-8 py-4 rounded-full bg-neon-cyan/20 border border-neon-cyan/50 text-white font-bold hover:bg-neon-cyan/30 transition-colors w-full sm:w-auto">
                 <Download className="w-5 h-5" />
                 Download App
               </a>
